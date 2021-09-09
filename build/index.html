@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="/favicon.png" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+
+		
+
+		<link rel="modulepreload" href="/salem-courses/_app/start-7eb97ea0.js">
+		<link rel="modulepreload" href="/salem-courses/_app/chunks/vendor-22bbb133.js">
+		<link rel="modulepreload" href="/salem-courses/_app/layout.svelte-da75b095.js">
+		<link rel="modulepreload" href="/salem-courses/_app/pages/index.svelte-5f7b63b0.js">
+		<link rel="stylesheet" href="/salem-courses/_app/assets/start-61d1577b.css">
+
+		<script type="module">
+			import { start } from "/salem-courses/_app/start-7eb97ea0.js";
+			start({
+				target: document.querySelector("#svelte"),
+				paths: {"base":"/salem-courses","assets":""},
+				session: {},
+				host: location.host,
+				route: true,
+				spa: false,
+				trailing_slash: "never",
+				hydrate: {
+					status: 200,
+					error: null,
+					nodes: [
+						import("/salem-courses/_app/layout.svelte-da75b095.js"),
+						import("/salem-courses/_app/pages/index.svelte-5f7b63b0.js")
+					],
+					page: {
+						host: location.host, // TODO this is redundant
+						path: "/",
+						query: new URLSearchParams(""),
+						params: {}
+					}
+				}
+			});
+		</script>
+	</head>
+	<body>
+		<div id="svelte">
+
+
+<div><label>Code Filter: <input value=""></label></div>
+
+
+
+
+
+			
+		</div>
+	</body>
+</html>
