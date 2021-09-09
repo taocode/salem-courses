@@ -33,6 +33,10 @@
     )
 </script>
 
+<svelte:head>
+	<title>Salem College Courses</title>
+</svelte:head>
+
 <div class="wrap" class:loading class:filtering>
   {#if loading}
     <div class="card">
