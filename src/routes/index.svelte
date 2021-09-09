@@ -68,8 +68,6 @@
     color: white;
     padding: 1em;
     height: 2rem;
-  }
-  .filtering .filters {
     position: fixed;
     top: 0;
     left: 0;
@@ -101,7 +99,7 @@
     min-height: 100vh;
     margin: 0;
   }
-  .filtering.wrap::before {
+  .wrap::before {
     content: ' ';
     height: 4rem;
     display: block;
