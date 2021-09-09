@@ -1,5 +1,6 @@
 <script>
   import { onMount } from "svelte"
+  import { browser } from '$app/env';
 
   // const gsheetURL = 'https://docs.google.com/spreadsheets/d/1b8A_3nyTz-8K4D9rcl97dS-Umdmqe0a6s0jbYc6Fgos/edit#gid=1801264911'
   // const gsheetCSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQVJh8qxOZeCe0XRjDWSy0aoCJUTX_1691UrBl3tAdcBiG5cVZdXldfWKXmJJsdMD9c3egS_3KmZua0/pub?gid=1801264911&single=true&output=csv'
@@ -26,11 +27,17 @@
     }).filter((c) => c.code !== undefined && c.code !== 'EVENT_ID')
     courses = allCourses
   })
-  let filterText = ""
+  let filterText = (browser) ? location.hash?.substring(1) : ""
   $: filtering = filterText != ""
-  $: courses = allCourses.filter((c) => 
+  let courses
+  $: {
+    courses = allCourses.filter((c) => 
       c.code.toLocaleUpperCase().includes(filterText.toLocaleUpperCase())
     )
+    if (browser) {
+      location.hash = (filterText != "") ? '#'+filterText : ""
+    }
+  }
 </script>
 
 <svelte:head>
@@ -53,7 +60,7 @@
     </header>
     <div class="container courses">
       {#if filterText}
-        <h3>{filterText.toLocaleUpperCase()} Courses ({filterText.toLocaleUpperCase()})</h3>
+        <h3>{filterText} Courses ({filterText.toLocaleUpperCase()})</h3>
       {/if}
       {#each courses as c}
         <h4>{c.code}. {c.title} <em>({c.credits} hrs)</em></h4>
