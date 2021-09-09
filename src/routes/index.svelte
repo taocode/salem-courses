@@ -26,49 +26,82 @@
     }).filter((c) => c.code !== undefined && c.code !== 'EVENT_ID')
     courses = allCourses
   })
-  let filterText = "";
+  let filterText = ""
+  $: filtering = filterText != ""
   $: courses = allCourses.filter((c) => 
-      c.code.toLocaleLowerCase().includes(filterText.toLocaleLowerCase())
+      c.code.toLocaleUpperCase().includes(filterText.toLocaleUpperCase())
     )
 </script>
 
-<div class="wrap">
-{#if loading}
-<div class="loading">
-  <div>Loading...</div>
-  <img alt="Loading" src="Spinner-3.gif">
-</div>
-{:else}
-<div class="filters">
-  <label>Code Filter: <input bind:value={filterText} ></label>
-</div>
-{#if filterText}
-<h3>{filterText.toLocaleUpperCase()} Courses</h3>
-{/if}
-{#each courses as c}
-<h4>{c.code} {c.title} <em>({c.credits} hrs)</em></h4>
-<p>{c.description}</p>
-{/each}
-{/if}
+<div class="wrap" class:loading class:filtering>
+  {#if loading}
+    <div class="card">
+      <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-spinner fa-pulse fa-w-16 fa-3x"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg>
+    </div>
+  {:else}
+    <div class="filters">
+      <div class="inner"><label>Code Filter: <input bind:value={filterText} size=4 ></label></div>
+    </div>
+    <div class="inner courses">
+      {#if filterText}
+        <h3>{filterText.toLocaleUpperCase()} Courses ({filterText.toLocaleUpperCase()})</h3>
+      {/if}
+      {#each courses as c}
+        <h4>{c.code}. {c.title} <em>({c.credits} hrs)</em></h4>
+        <p>{c.description || " "}</p>
+      {/each}
+    </div>
+  {/if}
 </div>
 <style>
-  .wrap {
-    min-height: 100vh;
-    margin: auto;
-    position: relative;
-    max-width: 100ch;
-  }
   .filters {
     background: darkblue;
     color: white;
     padding: 1em;
-    margin: -0.5em -1em 1.5em;
+    height: 2rem;
+  }
+  .filtering .filters {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+  input {
+    text-transform: uppercase;
+  }
+  .card {
+    width: 10em;
   }
   .loading {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-top: 5em;
+    background-color: var(--c-blue);
   }
+  svg {
+    max-width: 240px;
+    color: gold;
+    border-radius: 1em;
+    display: block;
+  }
+  .fa-pulse {
+    animation: fa-spin 1s steps(8) infinite;
+  }
+  .wrap {
+    min-height: 100vh;
+    margin: 0;
+  }
+  .filtering.wrap::before {
+    content: ' ';
+    height: 4rem;
+    display: block;
+  }
+  .inner {
+    max-width: 100ch;
+    margin: auto;
+  }
+  
+  @-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}
+  @keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}
 </style>
