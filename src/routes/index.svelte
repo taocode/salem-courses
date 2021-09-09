@@ -39,10 +39,15 @@
       <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="spinner" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-spinner fa-pulse fa-w-16 fa-3x"><path fill="currentColor" d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"></path></svg>
     </div>
   {:else}
-    <div class="filters">
-      <div class="inner"><label>Code Filter: <input bind:value={filterText} size=4 ></label></div>
+    <header class="filters">
+      <div class="container">
+        <div></div>
+        <h1>Salem College Courses</h1>
+        <div></div>
+        <label>Code Filter: <input bind:value={filterText} size=4 ></label>
     </div>
-    <div class="inner courses">
+    </header>
+    <div class="container courses">
       {#if filterText}
         <h3>{filterText.toLocaleUpperCase()} Courses ({filterText.toLocaleUpperCase()})</h3>
       {/if}
@@ -97,9 +102,20 @@
     height: 4rem;
     display: block;
   }
-  .inner {
+  header .container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+  }
+  h1 {
+    margin: 0;
+  }
+  .container {
     max-width: 100ch;
     margin: auto;
+  }
+  .courses {
+    padding: 0 1em;
   }
   
   @-webkit-keyframes fa-spin{0%{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(1turn);transform:rotate(1turn)}}
